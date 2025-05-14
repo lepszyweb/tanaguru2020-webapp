@@ -74,3 +74,7 @@ Improvements :
 
 ## 2.3.0
 - Remove temporary purge feature (2.1.0)
+
+## 2.3.1
+- store user avatar locally
+- improves accessibility of forms on the user profile page

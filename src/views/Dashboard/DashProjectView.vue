@@ -3,10 +3,10 @@
 		<header class="project-item-header">
 			<div>
 				<h3 class="project-title with-button">
-					<router-link 
-						:to="'/projects/' + project.id" 
-						:class="$store.state.auth.user.appAccountType.name === 'FREE' ? 'link-independent disabled' : 'link-independent'" 
-						:aria-disabled="$store.state.auth.user.appAccountType.name === 'FREE'" 
+					<router-link
+						:to="'/projects/' + project.id"
+						:class="$store.state.auth.user.appAccountType.name === 'FREE' ? 'link-independent disabled' : 'link-independent'"
+						:aria-disabled="$store.state.auth.user.appAccountType.name === 'FREE'"
 						:event="$store.state.auth.user.appAccountType.name != 'FREE' ? 'click' : ''"
 					>
 						{{ project.name }}
@@ -15,11 +15,11 @@
 				</h3>
 				<ul class="actions-list desktop-flex-element">
 					<li class="actions-list__item with-button">
-						<router-link 
-							:to="'/contracts/' + project.contract.id" 
-							v-on:click.native="activeTab()" 
-							:class="$store.state.auth.user.appAccountType.name === 'FREE' ? 'link-independent disabled' : 'link-independent'" 
-							:aria-disabled="$store.state.auth.user.appAccountType.name === 'FREE'" 
+						<router-link
+							:to="'/contracts/' + project.contract.id"
+							v-on:click.native="activeTab()"
+							:class="$store.state.auth.user.appAccountType.name === 'FREE' ? 'link-independent disabled' : 'link-independent'"
+							:aria-disabled="$store.state.auth.user.appAccountType.name === 'FREE'"
 							:event="$store.state.auth.user.appAccountType.name != 'FREE' ? 'click' : ''"
 						>
 							{{$t('entity.contract.contract')}} {{ project.contract.name }}
@@ -83,7 +83,7 @@
 
 				<ul class="project-item-list infos-list">
 					<li>
-						<span class="infos-list__exergue">{{$t('dashboard.project.url')}} </span> 
+						<span class="infos-list__exergue">{{$t('dashboard.project.url')}} </span>
 						<span v-if="project.domain">{{ project.domain }}</span>
 						<span v-else> {{$t('project.noDomain')}}</span>
 					</li>
@@ -95,7 +95,7 @@
 							</span>
 					</li>
 					<li>
-						<span class="infos-list__exergue">{{$t('dashboard.project.date')}}</span> 
+						<span class="infos-list__exergue">{{$t('dashboard.project.date')}}</span>
 						{{ moment(project.contract.dateEnd).format('LL') }}
 					</li>
 					<li class="checkbox">
@@ -110,11 +110,11 @@
 						<li class="team-list__item with-button" v-for="(user, i) in users" :key="user.contractAppUser.id">
 							<router-link v-if="i < 3" :to="'/users/' + user.contractAppUser.user.id" :aria-disabled="$store.state.auth.user.appAccountType.name === 'FREE'" :event="$store.state.auth.user.appAccountType.name != 'FREE' ? 'click' : ''" :class="$store.state.auth.user.appAccountType.name != 'FREE' ? '' : 'disabled'">
 
-								<span v-if="user.contractAppUser.user.appRole.name == 'USER'" class="team-list__picture" style="background-image:url('https://i.ibb.co/f2HHwzx/collection-caracteres-bebe-dragon-dessines-main-23-2147831551-2.jpg')"></span>
+								<span v-if="user.contractAppUser.user.appRole.name == 'USER'" class="team-list__picture" style="background-image:url('/assets/images/collection-caracteres-bebe-dragon-dessines-main-23-2147831551-2.jpg')"></span>
 
-								<span v-else-if="user.contractAppUser.user.appRole.name == 'ADMIN'" class="team-list__picture" style="background-image:url('https://i.ibb.co/ZW7dgkw/baby-dragon-character-collection-with-flat-design-23-2147823681-2.jpg')"></span>
+								<span v-else-if="user.contractAppUser.user.appRole.name == 'ADMIN'" class="team-list__picture" style="background-image:url('/assets/images/baby-dragon-character-collection-with-flat-design-23-2147823681-2.jpg')"></span>
 
-								<span v-else class="team-list__picture" style="background-image:url('https://i.ibb.co/kGq4gxY/tanaguru-logo-dragon-10x.png')"></span>
+								<span v-else class="team-list__picture" style="background-image:url('/assets/images/tanaguru-logo-dragon-10x.png')"></span>
 
 								<span class="team-list__name">{{ user.contractAppUser.user.username }}<br />{{ user.projectRole.name.charAt(0) + user.projectRole.name.slice(1).toLowerCase().replace(/_/g,' ') }}</span>
 							</router-link>
@@ -1013,7 +1013,7 @@ export default {
 	text-decoration: none;
 	cursor: default;
 	opacity: .7;
-	
+
 	&:hover {
 		text-decoration: none;
 		cursor: default;

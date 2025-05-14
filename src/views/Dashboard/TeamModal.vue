@@ -12,11 +12,11 @@
 				<li class="team-list__item" v-for="(user) in users" :key="user.contractAppUser.id">
 					<router-link :to="'/users/' + user.contractAppUser.user.id" :aria-label="user.contractAppUser.user.username + ' profile'">
 
-						<span v-if="user.contractAppUser.user.appRole.name == 'USER'" class="team-list__picture" style="background-image:url('https://i.ibb.co/f2HHwzx/collection-caracteres-bebe-dragon-dessines-main-23-2147831551-2.jpg')"></span>
+						<span v-if="user.contractAppUser.user.appRole.name == 'USER'" class="team-list__picture" style="background-image:url('/assets/images/collection-caracteres-bebe-dragon-dessines-main-23-2147831551-2.jpg')"></span>
 
-						<span v-else-if="user.contractAppUser.user.appRole.name == 'ADMIN'" class="team-list__picture" style="background-image:url('https://i.ibb.co/ZW7dgkw/baby-dragon-character-collection-with-flat-design-23-2147823681-2.jpg')"></span>
+						<span v-else-if="user.contractAppUser.user.appRole.name == 'ADMIN'" class="team-list__picture" style="background-image:url('/assets/images/baby-dragon-character-collection-with-flat-design-23-2147823681-2.jpg')"></span>
 
-						<span v-else class="team-list__picture" style="background-image:url('https://i.ibb.co/kGq4gxY/tanaguru-logo-dragon-10x.png')"></span>
+						<span v-else class="team-list__picture" style="background-image:url('/assets/images/tanaguru-logo-dragon-10x.png')"></span>
 
 						<span class="team-list__name">{{ user.contractAppUser.user.username }}<br />{{ user.projectRole.name.charAt(0) + user.projectRole.name.slice(1).toLowerCase().replace(/_/g,' ') }}</span>
 					</router-link>

@@ -6,12 +6,19 @@
 			<h1>{{ user.username }}</h1>
 		</header>
 
-		<article>
+		<article tabindex="-1">
 			<h2 class="user__title-2">{{ $t("user.profile") }}</h2>
 
 			<div v-if="modifyUserForm.active">
 				<p>{{ $t("form.indications.help") }}</p>
+
 				<form @submit.prevent="modifyUser" novalidate>
+					<div role="status">
+						<p v-if="modifyUserForm.error" class="info-error">
+							{{ modifyUserForm.error }}
+						</p>
+					</div>
+
 					<div class="form-row">
 						<div class="form-column">
 							<div class="form-block">
@@ -29,13 +36,16 @@
 									type="text"
 									name="username"
 									id="username"
+									aria-describedby="username-error"
 									:placeholder="$t('entity.user.username')"
 									v-model="modifyUserForm.username"
 								/>
 
-								<p v-show="modifyUserForm.usernameError" class="info-error">
-									{{ modifyUserForm.usernameError }}
-								</p>
+								<div id="username-error">
+									<p v-show="modifyUserForm.usernameError" class="info-error">
+										{{ modifyUserForm.usernameError }}
+									</p>
+								</div>
 							</div>
 						</div>
 
@@ -51,13 +61,16 @@
 									type="email"
 									name="email"
 									id="email"
+									aria-describedby="email-error"
 									:placeholder="$t('entity.user.email')"
 									v-model="modifyUserForm.email"
 								/>
 
-								<p v-show="modifyUserForm.emailError" class="info-error">
-									{{ modifyUserForm.emailError }}
-								</p>
+								<div id="email-error">
+									<p v-show="modifyUserForm.emailError" class="info-error">
+										{{ modifyUserForm.emailError }}
+									</p>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -126,14 +139,20 @@
 					<button class="btn btn--default btn-modify" type="submit">
 						{{ $t("action.modify") }}
 					</button>
-
-					<p v-if="modifyUserForm.error" class="info-error">
-						{{ modifyUserForm.error }}
-					</p>
 				</form>
 			</div>
 
 			<div v-else>
+				<div role="status">
+					<p v-if="modifyUserForm.error" class="info-error">
+						{{ modifyUserForm.error }}
+					</p>
+
+					<p class="info-success" v-if="modifyUserForm.successMsg">
+						{{ modifyUserForm.successMsg }}
+					</p>
+				</div>
+
 				<ul class="infos-list">
 					<li id="username">
 						<span class="infos-list__exergue">{{ $t("entity.user.username") }}</span>
@@ -160,25 +179,23 @@
 				<button class="btn btn--default btn-modify" v-if="$store.state.auth.authorities['MODIFY_USER'] || isCurrentUser" @click="showModifyUserForm()">
 					{{ $t("action.modify") }}
 				</button>
-
-				<p v-if="modifyUserForm.error" class="info-error">
-					{{ modifyUserForm.error }}
-				</p>
-
-				<p class="info-success" v-if="modifyUserForm.successMsg">
-					{{ modifyUserForm.successMsg }}
-				</p>
 			</div>
 		</article>
 
 		<!-- password -->
 
-		<article v-show="isCurrentUser">
+		<article tabindex="-1" v-show="isCurrentUser">
 			<h2 class="user__title-2">{{ $t("action.changePassword") }}</h2>
 
 			<div v-if="modifyPasswordForm.active">
 				<p>{{ $t("form.indications.help") }}</p>
 				<form @submit.prevent="modifyPassword" novalidate>
+					<div role="status">
+						<p v-if="modifyPasswordForm.error" class="info-error">
+							{{ modifyPasswordForm.error }}
+						</p>
+					</div>
+
 					<div class="form-block">
 						<label class="label" for="password2">
 							{{ $t("entity.user.newPassword") }} *
@@ -189,15 +206,18 @@
 							type="password"
 							name="password"
 							id="password2"
+							aria-describedby="password2-error"
 							:placeholder="$t('entity.user.password')"
 							v-model="modifyPasswordForm.password"
 							autocomplete="new-password"
 							required
 						/>
 
-						<p v-if="modifyPasswordForm.passwordError" class="info-error">
-							{{ modifyPasswordForm.passwordError }}
-						</p>
+						<div id="password2-error">
+							<p v-if="modifyPasswordForm.passwordError" class="info-error">
+								{{ modifyPasswordForm.passwordError }}
+							</p>
+						</div>
 					</div>
 
 					<div class="form-block">
@@ -210,28 +230,37 @@
 							type="password"
 							name="passwordConfirm"
 							id="passwordConfirm"
+							aria-describedby="passwordConfirm-error"
 							:placeholder="$t('entity.user.passwordConfirm')"
 							v-model="modifyPasswordForm.passwordConfirm"
 							autocomplete="new-password"
 							required
 						/>
 
-						<p v-if="modifyPasswordForm.confirmationError" class="info-error">
-							{{ modifyPasswordForm.confirmationError }}
-						</p>
+						<div id="passwordConfirm-error">
+							<p v-if="modifyPasswordForm.confirmationError" class="info-error">
+								{{ modifyPasswordForm.confirmationError }}
+							</p>
+						</div>
 					</div>
 
 					<button class="btn btn--default btn-modify" type="submit">
 						{{ $t("action.changePassword") }}
 					</button>
-
-					<p v-if="modifyPasswordForm.error" class="info-error">
-						{{ modifyPasswordForm.error }}
-					</p>
 				</form>
 			</div>
 
 			<div v-else>
+				<div role="status">
+					<p v-if="modifyPasswordForm.error" class="info-error">
+						{{ modifyPasswordForm.error }}
+					</p>
+
+					<p class="info-success" v-if="modifyPasswordForm.successMsg">
+						{{ modifyPasswordForm.successMsg }}
+					</p>
+				</div>
+
 				<button class="btn btn--default btn-modify" @click="showModifyPasswordForm()">
 					{{ $t("action.modify") }}
 				</button>
@@ -279,14 +308,17 @@
 										type="date"
 										name="token-validity"
 										id="token-validity"
+										aria-describedby="token-validity-error"
 										v-model=" tokenValidity.computedExpiration"
 										:aria-describedby=" tokenValidity.error ? 'token-error' : ''"
 										required
 									/>
 
-									<p v-show="tokenValidity.error" id="token-error" class="info-error">
-										{{ tokenValidity.error }}
-									</p>
+									<div id="token-validity-error">
+										<p v-show="tokenValidity.error" id="token-error" class="info-error">
+											{{ tokenValidity.error }}
+										</p>
+									</div>
 								</div>
 							</div>
 
@@ -476,8 +508,10 @@ export default {
 			this.modifyUserForm.active = true;
 		},
 		checkValidEmail: EmailHelper.checkValidEmail,
-		modifyUser() {
+		modifyUser(evt) {
+			let section = evt.currentTarget.closest("article");
 			this.modifyUserForm.error = "";
+			this.modifyUserForm.successMsg = "";
 
 			if (
 				this.modifyUserForm.username === "" ||
@@ -520,6 +554,7 @@ export default {
 								token: token,
 								user: this.user
 							});
+							section.focus();
 						},
 						error =>
 							(this.modifyUserForm.error = this.$i18n.t(
@@ -540,6 +575,7 @@ export default {
 							this.modifyUserForm.successMsg = this.$i18n.t(
 								"form.successMsg.savedChanges"
 							);
+							section.focus();
 						},
 						error =>
 							(this.modifyUserForm.error = this.$i18n.t(
@@ -555,7 +591,11 @@ export default {
 			this.modifyPasswordForm.active = true;
 		},
 		checkValidPassword: PasswordHelper.checkValidPassword,
-		modifyPassword() {
+		modifyPassword(evt) {
+			let section = evt.currentTarget.closest("article");
+			this.modifyPasswordForm.error = "";
+			this.modifyPasswordForm.successMsg = "";
+
 			if (
 				this.modifyPasswordForm.password.length == 0 ||
 				this.modifyPasswordForm.passwordConfirm.length == 0
@@ -584,7 +624,6 @@ export default {
 					"form.errorMsg.password.incorrectConfirmation"
 				);
 			} else {
-				this.modifyPasswordForm.error = "";
 				this.userService.changePassword(
 					this.modifyPasswordForm.password,
 					this.user.id,
@@ -592,8 +631,9 @@ export default {
 					user => {
 						this.modifyPasswordForm.active = false;
 						this.modifyPasswordForm.successMsg = this.$i18n.t(
-							"form.successMsg.savedChangesChange"
+							"form.successMsg.savedChanges"
 						);
+						section.focus();
 					},
 					error =>
 						(this.modifyPasswordForm.error = this.$i18n.t(
